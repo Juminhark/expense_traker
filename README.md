@@ -1,6 +1,6 @@
 # expense_tracker
 
-- [speechly](https://www.speechly.com/)
+- [speechly](https://api.speechly.com/dashboard/)
 
 ## init
 

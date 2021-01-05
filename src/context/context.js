@@ -2,29 +2,45 @@ import React, { useReducer, createContext } from 'react';
 
 import contextReducer from './contextReducer';
 
-const initialState = [];
+const initialState = JSON.parse(localStorage.getItem('transactions')) || [
+	{
+		amount: 5,
+		category: 'Savings',
+		type: 'Income',
+		date: '2020-11-23',
+		id: '037a35a3-40ec-4212-abe0-cc485a98aeee',
+	},
+];
 
 export const ExpenseTrackerContext = createContext(initialState);
 
 export const Provider = ({ children }) => {
 	const [transactions, dispatch] = useReducer(contextReducer, initialState);
 
-	// Action Creators
-	const deleteTransaction = (id) =>
+	const deleteTransaction = (id) => {
 		dispatch({ type: 'DELETE_TRANSACTION', payload: id });
+	};
 
-	const addTransaction = (transaction) =>
+	const addTransaction = (transaction) => {
 		dispatch({ type: 'ADD_TRANSACTION', payload: transaction });
+	};
 
-	console.log(transactions);
+	const balance = transactions.reduce(
+		(acc, currVal) =>
+			currVal.type === 'Expense' ? acc - currVal.amount : acc + currVal.amount,
+		0
+	);
 
 	return (
 		<ExpenseTrackerContext.Provider
-			value={{ deleteTransaction, addTransaction }}
+			value={{
+				transactions,
+				balance,
+				deleteTransaction,
+				addTransaction,
+			}}
 		>
 			{children}
 		</ExpenseTrackerContext.Provider>
 	);
 };
-
-//! app 전반에서 다룰수있는 재료를 준비하는곳.

@@ -1,5 +1,6 @@
 # expense_tracker
 
+- [Build and Deploy a Voice Powered Expense Tracker React App | Speechly, Context API, Local Storage] (https://www.youtube.com/watch?v=NnUFOWR_V4Y)
 - [speechly](https://api.speechly.com/dashboard/)
 
 ## init
